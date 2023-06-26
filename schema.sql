@@ -2,22 +2,35 @@ DROP DATABASE IF EXISTS cms_db;
 
 CREATE DATABASE cms_db;
 
+USE cms_db;
+
 CREATE TABLE department (
-	id INT,
-	name VARCHAR(30)
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(30),
+	PRIMARY KEY (id)
 	);
 
 CREATE TABLE role (
-	id INT,
+	id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30),
 	salary DECIMAL,
-    dartment_id INT
+    department_id INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (department_id),
+	REFERENCES department(id),
+	ON DELETE SET NULL
 	);
 
 CREATE TABLE employee (
-	id INT,
+	id INT NOT NULL AUTO_INCREMENT,
 	first_name VARCHAR(30),
     last_name VARCHAR(30),
     role_id INT,
-    manager_id INT
+    manager_id INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (role_id),
+	REFERENCES role(id),
+	FOREIGN KEY (manager_id),
+	REFERENCES employee(id),
+	ON DELETE SET NULL
 	);
