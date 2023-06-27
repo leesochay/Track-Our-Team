@@ -24,7 +24,7 @@ VALUES ("Chief Executive Officer", 450000, 5),
 INSERT into employee (first_name, last_name, role_id, manager_id)
 VALUES ("John", "Johnson", 1, NULL),
         ("Carley", "Moore", 2, 1),
-        ("Dena", "Wilson", 4, 3),
+        ("Dena", "Wilson", 4, 1),
         ("David", "Peterson", 3, 2),
         ('Charles','Chandler', 6, 4),
         ('Emil','Blonsky', 7, 5),
