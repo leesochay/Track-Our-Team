@@ -166,8 +166,73 @@ inquirer
 })
 })})}
 
+function updateEmployeeRole() {
+  db.query("select employee.id, employee.first_name, employee.last_name From employee", (err, results) => {
+    if (err) throw err;
+    const empUpdates = results.map(({ id, first_name, last_name }) => ({
+      name: `${first_name} ${last_name}`,
+      value: id
+    }));
+  db.query("select role.id, role.title FROM role;", (err, results) => {
+    if (err) throw err;  
+    const roleUpdates = results.map(({ id, title }) => ({
+      name: title,
+    value: id
+  }));
 
 
+// inquirer
+//   .prompt([
+//        {
+//       type:"input",
+//       name: "empFirstName",
+//       message: "What is the first name of the employee?",
+//     },
+//     {
+//       type:"input",
+//       name: "empLastName",
+//       message: "What is the last name of the employee?",
+//     },
+//     {
+//       type:"list",
+//       message: "In what role will the employee fill?",
+//       name: "empRole",
+//       choices: employees,
+//       loop: false,
+//     },
+//     {
+//       type:"list",
+//       message: "Who will play the part of manager here?",
+//       name: "empManager",
+//       choices: managers,
+//       loop: false,
+//     }
+//   ])
+
+
+
+
+
+// .then((answers) => {
+//   const newEmployee = Object.values(answers);
+//   const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
+//   db.query(sql, newEmployee, function (err, result) {
+//     if (err) throw err;
+//     console.log(" ");
+//     console.log(`Added ${answers.empFirstName} ${answers.empLastName} to the database`);
+//     console.log(" ");
+//     initialPrompt();
+//   });
+// })
+// })})}
+
+
+
+
+
+
+
+}
 
 
 
@@ -198,6 +263,8 @@ if (answers.options === "View All Departments") {
   addRole();
 } else if (answers.options === "Add Employee") {
   addEmployee();
+} else if (answers.options === "Update Employee Role") {
+  updateEmployeeRole();
 } else if(answers.options === "Quit") {
   db.end();
 }
