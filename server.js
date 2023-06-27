@@ -70,7 +70,13 @@ const addDepartment = () => {
 })
 }
 
-const addRole = () => {
+function addRole() {
+  db.query("select * from department", (err, results) => {
+if (err) throw err;
+const departments = results.map(({ id, name }) => ({
+    name: name,
+    value: id
+  }));
   inquirer
   .prompt([
     {
@@ -84,15 +90,17 @@ const addRole = () => {
       message: "What is salary associated with this position?",
     },
     {
-    type:"input",
-    name: "roleDepartment",
+    type:"list",
     message: "In what department will this position report?",
-    },
-])
+    name: "roleDepartment",
+    choices: departments,
+    loop: false,
+    }
+  ])
 .then((answers) => {
-  const sql = `INSERT INTO role (title, salary, department_id) VALUES (?)`;
-  let newRole = answers;
-  console.log(newRole);
+  const newRole = Object.values(answers);
+  console.log(newRole); 
+  const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
   db.query(sql, newRole, function (err, result) {
     if (err) throw err;
     console.log(" ");
@@ -101,6 +109,64 @@ const addRole = () => {
   });
 })
 }
+)}
+
+
+function addEmployee() {
+//   db.query("select * from department", (err, results) => {
+// if (err) throw err;
+// const departments = results.map(({ id, name }) => ({
+//     name: name,
+//     value: id
+//   }));
+//   inquirer
+//   .prompt([
+//     {
+//         type:"input",
+//         name: "roleName",
+//         message: "What is title for the new position in the company?",
+//     },
+//     {
+//       type:"input",
+//       name: "roleSalary",
+//       message: "What is salary associated with this position?",
+//     },
+//     {
+//     type:"list",
+//     message: "In what department will this position report?",
+//     name: "roleDepartment",
+//     choices: departments,
+//     loop: false,
+//     }
+//   ])
+// .then((answers) => {
+//   const newRole = Object.values(answers);
+//   console.log(newRole); 
+//   const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
+//   db.query(sql, newRole, function (err, result) {
+//     if (err) throw err;
+//     console.log(" ");
+//     console.log(`Added ${newRole} to the database`);
+//     initialPrompt();
+//   });
+// })
+// }
+// )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function initialPrompt() {
@@ -126,7 +192,9 @@ if (answers.options === "View All Departments") {
   addDepartment();
 } else if (answers.options === "Add Role") {
   addRole();
-} else if (answers.options === "Quit") {
+} else if (answers.options === "Add Employee") {
+  addEmployee();
+} else if(answers.options === "Quit") {
   db.end();
 }
 });
