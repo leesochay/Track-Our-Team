@@ -60,11 +60,11 @@ const addDepartment = () => {
 .then((answers) => {
   const sql = `INSERT INTO department (name) VALUES (?)`;
   let newDept = answers.departmentName;
-  console.log(newDept);
   db.query(sql, newDept, function (err, result) {
     if (err) throw err;
     console.log(" ");
     console.log(`Added ${newDept} to the database`);
+    console.log(" ");
     initialPrompt();
   });
 })
@@ -99,12 +99,12 @@ const departments = results.map(({ id, name }) => ({
   ])
 .then((answers) => {
   const newRole = Object.values(answers);
-  console.log(newRole); 
   const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
   db.query(sql, newRole, function (err, result) {
     if (err) throw err;
     console.log(" ");
-    console.log(`Added ${newRole} to the database`);
+    console.log(`Added ${answers.roleName} to the database`);
+    console.log(" ");
     initialPrompt();
   });
 })
@@ -113,22 +113,18 @@ const departments = results.map(({ id, name }) => ({
 
 
 function addEmployee() {
-
   db.query("select * from role", (err, results) => {
     if (err) throw err;
-console.log(results);
-  })
-
-  //   
-// 
-// const roles = results.map(({ id, name }) => ({
-//     name: name,
-//     value: id
-//   );
-
-
-
-
+const employees = results.map(({ id, title }) => ({
+  name: title,
+  value: id
+}));
+  db.query("select manager_id, CONCAT(first_name,' ', last_name) AS first_name FROM employee;", (err, results) => {
+  if (err) throw err;
+  const managers = results.map(({ id, first_name }) => ({
+  name: first_name,
+  value: id
+  }));
 
 inquirer
   .prompt([
@@ -142,28 +138,33 @@ inquirer
       name: "empLastName",
       message: "What is the last name of the employee?",
     },
-//     {
-//       type:"list",
-//       message: "In what department will this position report?",
-//       name: "roleDepartment",
-//       choices: departments,
-//       loop: false,
-    // }
+    {
+      type:"list",
+      message: "In what role will the employee fill?",
+      name: "empRole",
+      choices: employees,
+      loop: false,
+    },
+    {
+      type:"list",
+      message: "Who will play the part of manager here?",
+      name: "empManager",
+      choices: managers,
+      loop: false,
+    }
   ])
-// .then((answers) => {
-//   const newRole = Object.values(answers);
-//   console.log(newRole); 
-//   const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
-//   db.query(sql, newRole, function (err, result) {
-//     if (err) throw err;
-//     console.log(" ");
-//     console.log(`Added ${newRole} to the database`);
-//     initialPrompt();
-//   });
-// })
-// }
-// )
-}
+.then((answers) => {
+  const newEmployee = Object.values(answers);
+  const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
+  db.query(sql, newEmployee, function (err, result) {
+    if (err) throw err;
+    console.log(" ");
+    console.log(`Added ${answers.empFirstName} ${answers.empLastName} to the database`);
+    console.log(" ");
+    initialPrompt();
+  });
+})
+})})}
 
 
 
