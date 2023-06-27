@@ -1,14 +1,14 @@
-function init() {
-const express = require('express');
+
+// const express = require('express');
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 const PORT = process.env.PORT || 3001;
-const app = express();
+// const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 
 const db = mysql.createConnection(
   {
@@ -19,39 +19,58 @@ const db = mysql.createConnection(
   });
 
 db.connect((err) => {
-  if (err) {
-    console.error("Unable to connect to the cms_db database", err);
-    return;
-}
-    console.log(`Connected to the cms_db database.`);
-
+  if (err) throw err;
+  console.log(`Connected to the cms_db database.`);
+  initialPrompt();
 });
 
+const viewAllDepartments = () => {
+  db.query('SELECT * FROM department', function (err, results) {
+    console.log(" ");
+    console.table(results);
+    initialPrompt();
+  });
+  }
+
+const viewAllRoles = () => {
+  db.query('SELECT * FROM role', function (err, results) {
+    console.log(" ");
+    console.table(results);
+    initialPrompt();
+  });
+  }
+
+  const viewAllEmployees = () => {
+    db.query('SELECT * FROM employee', function (err, results) {
+      console.log(" ");
+      console.table(results);
+      initialPrompt();
+    });
+    }
+
+
+function initialPrompt() {
 inquirer
   .prompt([
     {
         type:"list",
         message: "What would you like to do?",
-        choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Quit"],
+        choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add Department', 'Add Role', 'Add Employee', 'Update Employee Role', 'Quit'],
         name: "options",
+        loop: false,
     },
 ])
 
 .then((answers) => {
-
 if (answers.options === "View All Departments") {
-  db.query('SELECT * FROM department', function (err, results) {
-    console.table(results);
-  });
+  viewAllDepartments();
 } else if (answers.options === "View All Roles") {
-  db.query('SELECT * FROM role', function (err, results) {
-    console.table(results);
-  });
+  viewAllRoles();
 } else if (answers.options === "View All Employees") {
-  db.query('SELECT * FROM employee', function (err, results) {
-    console.table(results);
-  })
-}});
+  viewAllEmployees();
+} else if (answers.options === "Quit") {
+  db.end();
+}
+});
 }
 
-init();
