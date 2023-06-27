@@ -40,14 +40,36 @@ const viewAllRoles = () => {
   });
   }
 
-  const viewAllEmployees = () => {
-    db.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON role.id = employee.role_id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee AS manager ON employee.manager_id = manager.id ORDER BY employee.id ASC;', function (err, results) {
-      console.log(" ");
-      console.table(results);
-      initialPrompt();
-    });
-    }
+const viewAllEmployees = () => {
+  db.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON role.id = employee.role_id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee AS manager ON employee.manager_id = manager.id ORDER BY employee.id ASC;', function (err, results) {
+    console.log(" ");
+    console.table(results);
+    initialPrompt();
+  });
+  }
 
+
+const addDepartment = () => {
+  inquirer
+  .prompt([
+    {
+        type:"input",
+        name: "departmentName",
+        message: "What is the name of the department to add?",
+    },
+])
+.then((answers) => {
+  const sql = `INSERT INTO department (name) VALUES (?)`;
+  let newDept = answers.departmentName;
+  console.log(newDept);
+  db.query(sql, newDept, function (err, result) {
+    if (err) throw err;
+    console.log(" ");
+    console.table(result);
+    initialPrompt();
+  });
+})
+}
 
 function initialPrompt() {
 inquirer
@@ -68,9 +90,10 @@ if (answers.options === "View All Departments") {
   viewAllRoles();
 } else if (answers.options === "View All Employees") {
   viewAllEmployees();
+} else if (answers.options === "Add Department") {
+  addDepartment();
 } else if (answers.options === "Quit") {
   db.end();
 }
 });
 }
-
