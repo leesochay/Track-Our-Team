@@ -7,9 +7,7 @@
   - [Installation](#installation)
   - [Usage](#usage)
   - [Contributing](#contributing)
-  - [Tests](#tests)
   - [License](#license)
-  - [Questions](#questions)
 
 ## Description
 This challenge involved the building of a content managagment system. This allows users to interact with data that is stored in databases. Building a command line interface, the user will be able to manage employee data. This application was built utilizing Node.js, Inquirer, and MySQL. 
@@ -52,7 +50,12 @@ With this description and criteria, the application is built using one database 
 
 Demo Video: 
 
-1. To generate the svg logo, enter "node index.js" into the command-line and follow the prompts.
+This is a command-line interface application, so all of the start up methods, usage, and interaction is through the command-line (specifically Git Bash for me).
+ - Sign in to mysql to provide structure and initial data to the database and tables.
+ - Source schema.sql which provides structure for the database and tables.
+ - Source seeds.sql which provides initial data within the tables.
+ - Quit mysql and start the appliocation (in the correct directory) by entering node server.js
+
 
 ## Contributing
 1. The npm package Inquirer
@@ -61,10 +64,6 @@ Demo Video:
 5. MDN Web Docs [s](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes).
 6. MDN Web Docs [ts](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Texts).
 7. [J](https://marketplace.visualstudio.com/items?itemName=jock.svg).
-
-## Tests
-1. This project includes a test script with Jest, a npm package for testing.
-2. To test the rendering svg function, enter "npm test" into the command-line.
 
 ## License
 MIT License
