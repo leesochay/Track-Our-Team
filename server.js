@@ -1,15 +1,10 @@
 
-// const express = require('express');
+// required modules for the project
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
-const PORT = process.env.PORT || 3001;
-// const app = express();
-
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-
+// Creating the connection for mysql and the inital function callto start the Inquirer prompt
 const db = mysql.createConnection(
   {
     host: 'localhost',
@@ -24,6 +19,7 @@ db.connect((err) => {
   initialPrompt();
 });
 
+// Function for All Departments inquiry
 const viewAllDepartments = () => {
   db.query('SELECT * FROM department', function (err, results) {
     console.log(" ");
@@ -32,6 +28,7 @@ const viewAllDepartments = () => {
   });
   }
 
+  // Function for All Roles inquiry
 const viewAllRoles = () => {
   db.query('SELECT role.id, role.title, role.salary, department.name AS department FROM role JOIN department ON role.department_id = department.id', function (err, results) {
     console.log(" ");
@@ -40,6 +37,7 @@ const viewAllRoles = () => {
   });
   }
 
+  // Function for All Employees inquiry
 const viewAllEmployees = () => {
   db.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON role.id = employee.role_id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee AS manager ON employee.manager_id = manager.id ORDER BY employee.id ASC;', function (err, results) {
     console.log(" ");
@@ -48,6 +46,7 @@ const viewAllEmployees = () => {
   });
   }
 
+  // Function to add a Department while using the inquirer module
 const addDepartment = () => {
   inquirer
   .prompt([
@@ -70,6 +69,7 @@ const addDepartment = () => {
 })
 }
 
+// Function to add role while using the inquirer module
 function addRole() {
   db.query("select * from department", (err, results) => {
 if (err) throw err;
@@ -111,7 +111,7 @@ const departments = results.map(({ id, name }) => ({
 }
 )}
 
-
+// Function to add an employee
 function addEmployee() {
   db.query("select * from role", (err, results) => {
     if (err) throw err;
@@ -166,6 +166,7 @@ inquirer
 })
 })})}
 
+// Function to update the employee's role
 function updateEmployeeRole() {
   db.query("select employee.id, employee.first_name, employee.last_name From employee", (err, results) => {
     if (err) throw err;
@@ -199,7 +200,6 @@ inquirer
   ])
   .then((answers) => {
     // const updatedEmployeeRole = Object.values(answers);
-    console.log(answers);
     const sql = `UPDATE employee SET role_id = ${answers.roleEmpUpdates} Where id = ${answers.empRoleUpdates}`;
     db.query(sql, answers, function (err, result) {
     if (err) throw err;
@@ -211,7 +211,7 @@ inquirer
 })
 })})}
 
-
+// This is the main menu of choices to work with the tables in the database
 function initialPrompt() {
 inquirer
   .prompt([
