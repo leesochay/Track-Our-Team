@@ -113,32 +113,43 @@ const departments = results.map(({ id, name }) => ({
 
 
 function addEmployee() {
-//   db.query("select * from department", (err, results) => {
-// if (err) throw err;
-// const departments = results.map(({ id, name }) => ({
+
+  db.query("select * from role", (err, results) => {
+    if (err) throw err;
+console.log(results);
+  })
+
+  //   
+// 
+// const roles = results.map(({ id, name }) => ({
 //     name: name,
 //     value: id
-//   }));
-//   inquirer
-//   .prompt([
+//   );
+
+
+
+
+
+inquirer
+  .prompt([
+       {
+      type:"input",
+      name: "empFirstName",
+      message: "What is the first name of the employee?",
+    },
+    {
+      type:"input",
+      name: "empLastName",
+      message: "What is the last name of the employee?",
+    },
 //     {
-//         type:"input",
-//         name: "roleName",
-//         message: "What is title for the new position in the company?",
-//     },
-//     {
-//       type:"input",
-//       name: "roleSalary",
-//       message: "What is salary associated with this position?",
-//     },
-//     {
-//     type:"list",
-//     message: "In what department will this position report?",
-//     name: "roleDepartment",
-//     choices: departments,
-//     loop: false,
-//     }
-//   ])
+//       type:"list",
+//       message: "In what department will this position report?",
+//       name: "roleDepartment",
+//       choices: departments,
+//       loop: false,
+    // }
+  ])
 // .then((answers) => {
 //   const newRole = Object.values(answers);
 //   console.log(newRole); 
@@ -153,14 +164,6 @@ function addEmployee() {
 // }
 // )
 }
-
-
-
-
-
-
-
-
 
 
 
