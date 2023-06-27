@@ -119,10 +119,10 @@ const employees = results.map(({ id, title }) => ({
   name: title,
   value: id
 }));
-  db.query("select manager_id, CONCAT(first_name,' ', last_name) AS first_name FROM employee;", (err, results) => {
+  db.query("select id, first_name, last_name, manager_id FROM employee;", (err, results) => {
   if (err) throw err;
-  const managers = results.map(({ id, first_name }) => ({
-  name: first_name,
+  const managers = results.map(({ id, first_name, last_name }) => ({
+  name: `${first_name} ${last_name}`,
   value: id
   }));
 
@@ -173,69 +173,43 @@ function updateEmployeeRole() {
       name: `${first_name} ${last_name}`,
       value: id
     }));
-  db.query("select role.id, role.title FROM role;", (err, results) => {
+  db.query("select role.id, role.title FROM role;", (err, result) => {
     if (err) throw err;  
-    const roleUpdates = results.map(({ id, title }) => ({
+    const roleUpdates = result.map(({ id, title }) => ({
       name: title,
     value: id
   }));
 
-
-// inquirer
-//   .prompt([
-//        {
-//       type:"input",
-//       name: "empFirstName",
-//       message: "What is the first name of the employee?",
-//     },
-//     {
-//       type:"input",
-//       name: "empLastName",
-//       message: "What is the last name of the employee?",
-//     },
-//     {
-//       type:"list",
-//       message: "In what role will the employee fill?",
-//       name: "empRole",
-//       choices: employees,
-//       loop: false,
-//     },
-//     {
-//       type:"list",
-//       message: "Who will play the part of manager here?",
-//       name: "empManager",
-//       choices: managers,
-//       loop: false,
-//     }
-//   ])
-
-
-
-
-
-// .then((answers) => {
-//   const newEmployee = Object.values(answers);
-//   const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
-//   db.query(sql, newEmployee, function (err, result) {
-//     if (err) throw err;
-//     console.log(" ");
-//     console.log(`Added ${answers.empFirstName} ${answers.empLastName} to the database`);
-//     console.log(" ");
-//     initialPrompt();
-//   });
-// })
-// })})}
-
-
-
-
-
-
-
-}
-
-
-
+inquirer
+  .prompt([
+    {
+      type:"list",
+      message: "Which employee's role would you like to update?",
+      name: "empRoleUpdates",
+      choices: empUpdates,
+      loop: false,
+    },
+    {
+      type:"list",
+      message: "Which role will be assigned to the employee?",
+      name: "roleEmpUpdates",
+      choices: roleUpdates,
+      loop: false,
+    }
+  ])
+  .then((answers) => {
+    // const updatedEmployeeRole = Object.values(answers);
+    console.log(answers);
+    const sql = `UPDATE employee SET role_id = ${answers.roleEmpUpdates} Where id = ${answers.empRoleUpdates}`;
+    db.query(sql, answers, function (err, result) {
+    if (err) throw err;
+    console.log(" ");
+    console.log(`Updated Employee's Role`);
+    console.log(" ");
+    initialPrompt();
+  });
+})
+})})}
 
 
 function initialPrompt() {
