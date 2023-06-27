@@ -1,3 +1,6 @@
+
+-- Preconfigured dat to prefill the created tables for the project
+
 INSERT INTO department (name)
 VALUES ("Sales"),
        ("Marketing"),
