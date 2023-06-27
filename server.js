@@ -48,7 +48,6 @@ const viewAllEmployees = () => {
   });
   }
 
-
 const addDepartment = () => {
   inquirer
   .prompt([
@@ -65,11 +64,44 @@ const addDepartment = () => {
   db.query(sql, newDept, function (err, result) {
     if (err) throw err;
     console.log(" ");
-    console.table(result);
+    console.log(`Added ${newDept} to the database`);
     initialPrompt();
   });
 })
 }
+
+const addRole = () => {
+  inquirer
+  .prompt([
+    {
+        type:"input",
+        name: "roleName",
+        message: "What is title for the new position in the company?",
+    },
+    {
+      type:"input",
+      name: "roleSalary",
+      message: "What is salary associated with this position?",
+    },
+    {
+    type:"input",
+    name: "roleDepartment",
+    message: "In what department will this position report?",
+    },
+])
+.then((answers) => {
+  const sql = `INSERT INTO role (title, salary, department_id) VALUES (?)`;
+  let newRole = answers;
+  console.log(newRole);
+  db.query(sql, newRole, function (err, result) {
+    if (err) throw err;
+    console.log(" ");
+    console.log(`Added ${newRole} to the database`);
+    initialPrompt();
+  });
+})
+}
+
 
 function initialPrompt() {
 inquirer
@@ -92,6 +124,8 @@ if (answers.options === "View All Departments") {
   viewAllEmployees();
 } else if (answers.options === "Add Department") {
   addDepartment();
+} else if (answers.options === "Add Role") {
+  addRole();
 } else if (answers.options === "Quit") {
   db.end();
 }
