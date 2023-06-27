@@ -43,9 +43,10 @@ Acceptance Criteria
 With this description and criteria, the application is built using one database with three tables (department, role, employee).
 
 ## Installation
-1. This application utilizes Node.js, so this will need to be installed.
+1. This application utilizes [Node.js](https://nodejs.org/en).
 2. Install npm package [Inquirer](https://www.npmjs.com/package/inquirer) as the application to ask questions and capture the repsonses.
-3. Install npm package [Jest](https://www.npmjs.com/package/jest) as the testing applcation for the rendering svg function.
+3. Install npm package [Mysql2](https://www.npmjs.com/package/mysql2) which allow the connection and interaction with Mysql databases.
+4. Install npm package [Console.table](https://www.npmjs.com/package/console.table) which formats tables within the console.
 
 ## Usage
 
