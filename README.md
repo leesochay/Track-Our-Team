@@ -57,6 +57,11 @@ This is a command-line interface application, so all of the start up methods, us
  - Quit mysql and start the appliocation (in the correct directory) by entering node server.js
 
 
+![Inquirer Screenshot](https://github.com/leesochay/logo-maker/assets/128553488/0e4500be-7bb5-4901-bce3-e6db702d65bf)
+
+
+
+
 ## Contributing
 1. The npm package Inquirer
 3. Notes and video replay from class
