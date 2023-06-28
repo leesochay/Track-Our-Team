@@ -57,7 +57,14 @@ This is a command-line interface application, so all of the start up methods, us
  - Quit mysql and start the appliocation (in the correct directory) by entering node server.js
 
 
-
+![InitialScreenshot](https://github.com/leesochay/track-our-team/blob/main/images/Initial_screenshot.png)
+![All Departments](https://github.com/leesochay/track-our-team/blob/main/images/All_departments_screenshot.png)
+![All Roles](https://github.com/leesochay/track-our-team/blob/main/images/View_all_roles_screenshot.png)
+![All Employees](https://github.com/leesochay/track-our-team/blob/main/images/All_employees_screenshot.png)
+![Add Department](https://github.com/leesochay/track-our-team/blob/main/images/Add_department.png)
+![Add Role](https://github.com/leesochay/track-our-team/blob/main/images/Add_role.png)
+![Add Employee](https://github.com/leesochay/track-our-team/blob/main/images/Add_employee.png)
+![Update Employee Role](https://github.com/leesochay/track-our-team/blob/main/images/Update_employee_role.png)
 
 
 
