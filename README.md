@@ -48,7 +48,7 @@ With this description and criteria, the application is built using one database 
 
 ## Usage
 
-Demo Video: 
+Demo Video: [Track-Our-Team Demo](https://drive.google.com/file/d/1Bs7E0_f77cjZONEGXeFnJ9keiH-Yc7VM/view)
 
 This is a command-line interface application, so all of the start up methods, usage, and interaction is through the command-line (specifically Git Bash for me).
  - Sign in to mysql to provide structure and initial data to the database and tables.
@@ -56,26 +56,32 @@ This is a command-line interface application, so all of the start up methods, us
  - Source seeds.sql which provides initial data within the tables.
  - Quit mysql and start the appliocation (in the correct directory) by entering node server.js
 
-
 ![InitialScreenshot](https://github.com/leesochay/track-our-team/blob/main/images/Initial_screenshot.png)
+
 ![All Departments](https://github.com/leesochay/track-our-team/blob/main/images/All_departments_screenshot.png)
+
 ![All Roles](https://github.com/leesochay/track-our-team/blob/main/images/View_all_roles_screenshot.png)
+
 ![All Employees](https://github.com/leesochay/track-our-team/blob/main/images/All_employees_screenshot.png)
+
 ![Add Department](https://github.com/leesochay/track-our-team/blob/main/images/Add_department.png)
+
 ![Add Role](https://github.com/leesochay/track-our-team/blob/main/images/Add_role.png)
+
 ![Add Employee](https://github.com/leesochay/track-our-team/blob/main/images/Add_employee.png)
+
 ![Update Employee Role](https://github.com/leesochay/track-our-team/blob/main/images/Update_employee_role.png)
 
-
-
-
 ## Contributing
-1. The npm package Inquirer
-3. Notes and video replay from class
-4. MDN Web Docs [l](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial).
-5. MDN Web Docs [s](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes).
-6. MDN Web Docs [ts](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Texts).
-7. [J](https://marketplace.visualstudio.com/items?itemName=jock.svg).
+Many Resources to help me along the way:
+- [MySQL](https://www.mysql.com/): Update Statement, SELECT Statement
+- npm Documentation: [Inquirer](https://www.npmjs.com/package/inquirer), [MySQL2](https://www.npmjs.com/package/mysql2)
+- [W3 Schools - MySQL](https://www.w3schools.com/mysql/default.asp): SELECT Statement, UPDATE, INNER JOIN, LEFT JOIN, INSERT-SELECT, Constraints, Auto_Increment, Data Types, , Functions, CONCAT()
+- [Node.js MySQL](https://www.w3schools.com/nodejs/nodejs_mysql.asp)
+- [W3 Schools - JavaScript](https://www.w3schools.com/js/default.asp)
+- JavaScript: map(), forEach()
+- [MDN Web docs](https://developer.mozilla.org/en-US/): forEach(), map()
+- [Convert an Object to an Array in JavaScript](https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/)
 
 ## License
 MIT License
