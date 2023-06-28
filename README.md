@@ -59,7 +59,7 @@ This is a command-line interface application, so all of the start up methods, us
 
 ![Inquirer Screenshot](https://github.com/leesochay/logo-maker/assets/128553488/0e4500be-7bb5-4901-bce3-e6db702d65bf)
 
-
+![Initial Screenshot](https://github.com/leesochay/track-our-team/blob/363dac9e535590acab6521181e919d9c1aab44bf/Initial_screenshot.png)
 
 
 ## Contributing
